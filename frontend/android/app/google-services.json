@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1058443477105",
+    "project_id": "csse-project-2022",
+    "storage_bucket": "csse-project-2022.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1058443477105:android:6e6b60a42509d876c45bd0",
+        "android_client_info": {
+          "package_name": "com.frontend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1058443477105-poalfk2hu595l0gh5ao9o48e5gscvg2m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4PktmzoUqD_7znoZ86cbSIoE5XyfkzW4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1058443477105-poalfk2hu595l0gh5ao9o48e5gscvg2m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
