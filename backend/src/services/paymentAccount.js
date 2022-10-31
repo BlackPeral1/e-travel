@@ -4,7 +4,7 @@ import {
     paymentsAllAccount,
     findPaymentAccount,
     findAndUpdatePaymentAccount,
-    removePaymentAccount, updateAccountBalanceByUserId
+    removePaymentAccount, updateAccountBalanceByUserId,findAccountByUserId
 } from '../repository/paymentAccount'
 import {re} from "@babel/core/lib/vendor/import-meta-resolve";
 
@@ -19,7 +19,11 @@ export const getPaymentsAccounts = async () => {
 
 export const getPaymentAccount = async (id) => {
 
-    return await findPaymentAccount({userId: id})
+    return await findPaymentAccount({_Id: id})
+}
+export const getAccountByUserId = async (id) => {
+
+    return await findAccountByUserId({userId: id})
 }
 
 export const updatePaymentAccount = async (payment_id, data) => {

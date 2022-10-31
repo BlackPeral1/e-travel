@@ -4,7 +4,7 @@ import {
     getPaymentsAccounts,
     updatePaymentAccount,
     getPaymentAccount,
-    deletePaymentAccount, updateAccountBalance
+    deletePaymentAccount, updateAccountBalance,getAccountByUserId
 
 } from '../services/paymentAccount'
 import { makeResponse } from '../utils/response'
@@ -28,10 +28,10 @@ export const getAllPaymentAccount  = asyncHandler(async (req, res) => {
     return makeResponse({ res, data, message: 'Payment Account retrieved successfully' })
 })
 
-// export const getPaymentByIdAccount  = asyncHandler(async (req, res) => {
-//     const data = await getPaymentAccount(req.params.id)
-//     return makeResponse({ res, data, message: 'Payment Account retrieved successfully' })
-// })
+export const getPaymentByUserId  = asyncHandler(async (req, res) => {
+    const data = await getAccountByUserId(req.params.id)
+    return makeResponse({ res, data, message: 'Payment Account retrieved successfully' })
+})
 
 export const getPaymentByIdAccount  = asyncHandler(async (req, res) => {
     const data = await getPaymentAccount(req.params.id)

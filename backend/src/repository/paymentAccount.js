@@ -12,6 +12,11 @@ export const findPaymentAccount = async (filters) => {
     return await Account.findOne(filters)
 }
 
+export const findAccountByUserId = async (filters) => {
+    return await Account.find(filters)
+}
+
+
 export const findAndUpdatePaymentAccount = async (id, data) => {
     return await Account.findByIdAndUpdate(id, data, {new: true});
 }
