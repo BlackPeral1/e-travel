@@ -30,7 +30,6 @@ export const getAllForeignPassenger = async ({ sort = {}, filter = {}, page}) =>
         throw err
     })
 }
-
 export const getOneForeignPassenger = async (filters, returnPassword = false) => {
     const foreignPassenger = await ForeignPassengerModel.findOne(filters).lean()
     if (!foreignPassenger) return null
