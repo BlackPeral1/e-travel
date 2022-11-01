@@ -6,7 +6,7 @@ import {
   getOneTimeTable,
   getAllTimeTables,
   removeTimeTable,
-} from "../controllers/transportRoute.controller";
+} from "../controllers/timeTable.controller";
 
 const timeTableRouter = express.Router();
 

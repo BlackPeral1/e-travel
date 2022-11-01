@@ -15,4 +15,4 @@ journeyRouter.get("/:id", getJourneyById);
 journeyRouter.get("/", getAllJourneys);
 journeyRouter.delete("/:id", deleteJourneyById);
 
-export default publicJourneyRouter;
+export default journeyRouter;

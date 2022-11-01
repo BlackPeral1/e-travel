@@ -2,12 +2,16 @@ import asyncHandler from "../middleware/async";
 import {
   getTimeTables,
   createTimeTable,
-  updateTimeTable,
+  updateTimeTableById,
   getTimeTable,
   deleteTimeTable,
 } from "../services/timeTable";
 import { makeResponse } from "../utils/response";
-
+  // addTimeTable,
+  // updateTimeTable,
+  // getOneTimeTable,
+  // getAllTimeTables,
+  // removeTimeTable,
 export const addTimeTable = asyncHandler(async (req, res) => {
   try {
     const result = await createTimeTable(req.body);

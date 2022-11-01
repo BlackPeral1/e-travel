@@ -2,7 +2,7 @@ import asyncHandler from "../middleware/async";
 import {
   getTransportRoutes,
   createTransportRoute,
-  updateTransportRoute,
+  updateTransportRouteById,
   getTransportRoute,
   deleteTransportRoute,
 } from "../services/transportRoute";

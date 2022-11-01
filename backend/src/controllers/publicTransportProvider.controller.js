@@ -2,7 +2,7 @@ import asyncHandler from "../middleware/async";
 import {
   getPublicTransportProviders,
   createPublicTransportProvider,
-  updatePublicTransportProvider,
+  updatePublicTransportProviderById,
   getPublicTransportProvider,
   deletePublicTransportProvider,
 } from "../services/publicTransportProvider";

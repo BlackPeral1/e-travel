@@ -2,9 +2,9 @@ import asyncHandler from "../middleware/async";
 import {
   getJourneys,
   createJourney,
-  updateJourney,
   getJourney,
   deleteJourney,
+  updateJourneyById,
 } from "../services/journey";
 import { makeResponse } from "../utils/response";
 
@@ -43,10 +43,7 @@ export const getJourneyById = asyncHandler(async (req, res) => {
 });
 
 export const updateJourney = asyncHandler(async (req, res) => {
-  const result = await updateJourney(
-    req.params.id,
-    req.body
-  );
+  const result = await updateJourneyById(req.params.id, req.body);
   if (!result)
     return makeResponse({
       res,
@@ -61,19 +58,17 @@ export const updateJourney = asyncHandler(async (req, res) => {
   });
 });
 
-export const deleteJourneyById = asyncHandler(
-  async (req, res) => {
-    const result = await deleteJourney(req.params.id);
-    if (!result)
-      return makeResponse({
-        res,
-        status: 500,
-        message: "Failed to delete Journey",
-      });
-    if (result.status) return makeResponse({ res, ...result });
+export const deleteJourneyById = asyncHandler(async (req, res) => {
+  const result = await deleteJourney(req.params.id);
+  if (!result)
     return makeResponse({
       res,
-      message: "Journey  deleted successfully",
+      status: 500,
+      message: "Failed to delete Journey",
     });
-  }
-);
+  if (result.status) return makeResponse({ res, ...result });
+  return makeResponse({
+    res,
+    message: "Journey  deleted successfully",
+  });
+});
