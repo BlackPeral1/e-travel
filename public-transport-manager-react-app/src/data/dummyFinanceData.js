@@ -51,7 +51,7 @@ export const financeData = [
         to : "Colombo",
         income : 19000,
         expenses : 10000,
-        profit : 10000
+        profit : 9000
     },
 
 ]
