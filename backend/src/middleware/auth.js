@@ -27,3 +27,9 @@ export const InspectorProtect = asyncHandler(async (req, res, next) => {
   if (req.user.role !== 'INSPECTOR') return makeResponse({ res, status: 403, message: 'Unauthorized' })
   next()
 })
+
+export const PTMangerProtect = asyncHandler(async (req, res, next) => {
+  if (req.user.role !== "PTMANAGER")
+    return makeResponse({ res, status: 403, message: "Unauthorized" });
+  next();
+});
