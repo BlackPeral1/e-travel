@@ -7,10 +7,6 @@ const PTManagerSchema = new mongoose.Schema(
       type: String,
       minlength: 8,
     },
-    address: {
-      type: String,
-      minlength: 8,
-    },
   },
   {
     versionKey: false,
