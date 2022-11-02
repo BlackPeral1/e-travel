@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import SubNavBar from '../subNavBar/SubNavBar'
-export default function Payment() {
+export default function PublicTranportManagerDashboard() {
   return (
     <>
       <SubNavBar />

@@ -57,7 +57,7 @@ export default function Login() {
 
   return (
     <>
-      <TopNav />
+      {/* <TopNav /> */}
       <Container className="mt-5" >
         <Row>
           <Col >
@@ -81,9 +81,9 @@ export default function Login() {
               </Form.Group>
               <Form.Group className="text-center  mt-3" controlId="formBasicCheckbox">
                 <Form.Text className="text-primary">
-                  <Nav.Link>
+                  {/* <Nav.Link>
                     Not a member? Let's Sign Up!
-                  </Nav.Link>
+                  </Nav.Link> */}
                 </Form.Text>
 
               </Form.Group>

@@ -4,106 +4,44 @@ import Col from 'react-bootstrap/Col'
 
 import Modal from 'react-bootstrap/Modal'
 import Row from 'react-bootstrap/Row'
-import Multiselect from 'multiselect-react-dropdown'
+
 import axios from 'axios'
 import Moment from 'moment'
 import { Table, Form, Input } from 'antd'
 import Swal from 'sweetalert2'
 
-
-
-import './CusPickupReqModal.scoped.css'
+import './timeTableModal.scoped.css'
 
 export default function CusPickupReqModal(props) {
-  const [form, setForm] = useState({})
   const [validated, setValidated] = useState(false)
-  const [multiselectstyle, setMultiselectstyle] = useState({
-    chips: {
-      background: '#17d193',
-    },
-    highlightOption: {
-      background: '#17d193',
-    },
-  })
+  const [dataSource, setDataSource] = useState(data)
+  const [editingRow, setEditingRow] = useState(null)
+  const [antform] = Form.useForm()
 
   useEffect(() => {
-    setForm({
-      location: props.viewDetils.location,
-      wasteTypes: props.viewDetils.wasteTypes,
-      size: props.viewDetils.size,
-      note: props.viewDetils.note,
-    })
+    setDataSource([...props.viewDetils])
   }, [props])
-
-
-
-  const checkValidity = (e) => {
-    if (form.wasteTypes == undefined || form.wasteTypes.length == 0) {
-      setMultiselectstyle({
-        chips: {
-          background: '#17d193',
-        },
-        highlightOption: {
-          background: '#17d193',
-        },
-        searchBox: {
-          border: '1px solid #dc3545',
-        },
-      })
-      return true
-    } else {
-      setMultiselectstyle({
-        chips: {
-          background: '#17d193',
-        },
-        highlightOption: {
-          background: '#17d193',
-        },
-      })
-      return false
-    }
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const inForm = e.currentTarget
-    checkValidity()
 
+    axios
+      .patch(`http://localhost:3001/api/auth/traportRoute/${props.viewDetils._id}`, dataSource)
+      .then((res) => {
         Swal.fire({
           icon: 'success',
           title: 'Request successfully updated',
           showConfirmButton: false,
           timer: 2000,
         })
-        // props.getPickupReq()
+   
+        props.getTransportRoute()
         props.detilsModalClose()
-        // setValidated(false)
-    // if (
-    //   inForm.checkValidity() === false ||
-    //   !form.location.lat ||
-    //   !form.location.lng ||
-    //   checkValidity()
-    // ) {
-    //   setValidated(true)
-    // } else {
-    //   await apiRequest(() =>
-    //     axiosInstance.patch(`/api/pickupRequest/${props.viewDetils._id}`, form),
-    //   )
-    //     .then((res) => {
-    //       Swal.fire({
-    //         icon: 'success',
-    //         title: 'Request successfully updated',
-    //         showConfirmButton: false,
-    //         timer: 2000,
-    //       })
-    //       props.getPickupReq()
-    //       props.detilsModalClose()
-    //       setValidated(false)
-    //     })
-    //     .catch((err) => {
-    //       console.log(err)
-    //     })
-    // }
+        setValidated(false)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   const handleCancel = async (e) => {
@@ -116,24 +54,7 @@ export default function CusPickupReqModal(props) {
       confirmButtonText: 'Yes, cansel it!',
     }).then(async (result) => {
       if (result.isConfirmed) {
-        // await apiRequest(() =>
-        //   axiosInstance.delete(`/api/pickupRequest/${props.viewDetils._id}`, form),
-        // )
-        //   .then((res) => {
-        //     Swal.fire({
-        //       icon: 'success',
-        //       title: 'Canceled!',
-        //       text: 'Your request has been canceled.',
-        //       showConfirmButton: false,
-        //       timer: 2000,
-        //     })
-        //     props.getPickupReq()
-        //     props.detilsModalClose()
-        //   })
-        //   .catch((err) => {
-        //     console.log(err)
-        //   })
-              props.detilsModalClose()
+        props.detilsModalClose()
       }
     })
   }
@@ -240,9 +161,7 @@ export default function CusPickupReqModal(props) {
       endTime: '11:30 A.M',
     },
   ]
-  const [dataSource, setDataSource] = useState(data)
-  const [editingRow, setEditingRow] = useState(null)
-  const [antform] = Form.useForm()
+
   const onFinish = (values) => {
     console.log(values)
     const updatedDataSource = [...dataSource]
@@ -258,7 +177,8 @@ export default function CusPickupReqModal(props) {
         <Modal.Header closeButton className="position-relative">
           <strong>
             <h5>
-              #{props.viewDetils.requestNo} - {props.viewDetils?.requestReceivedBy?.name}
+              #{props.viewDetils.routeId} , {props.viewDetils?.startLocation} ,
+              {props.viewDetils?.endsAt}
             </h5>
           </strong>
           <p className="r-date">
