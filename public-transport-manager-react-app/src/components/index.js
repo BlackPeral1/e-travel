@@ -2,8 +2,8 @@ import AppContent from './AppContent'
 
 import TopBar from './topbar/TopBar'
 
-import CusPickupReqModal from './cusPickupReqModal/CusPickupReqModal'
+import TimeTableModal from './timeTableModal/TimeTableModal'
 
 import TopNav from './topnav/TopNav'
 
-export { AppContent, TopBar, TopNav, CusPickupReqModal }
+export { AppContent, TopBar, TopNav, TimeTableModal }

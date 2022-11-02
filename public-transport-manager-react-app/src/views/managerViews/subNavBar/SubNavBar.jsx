@@ -2,9 +2,7 @@ import React, { useState, useRef } from 'react'
 import { NavLink } from 'react-router-dom'
 import './subNavBar.scoped.css'
 
-import AllPickupReq from '../../pickupReq/allPickupReq/AllPickupReq' 
-import PaymentMethods from '../paymentMethods/PaymentMethods'
-import MakePayment from '../make-payment/MakePayment'
+import TransportRoutes from '../../publicTransportManager/TranportRoutes/TransportRoutes'
 
 export default function SubNavBar() {
   const [targetUi, setTargetUi] = useState('view-payments')
@@ -46,13 +44,13 @@ export default function SubNavBar() {
       </div>
       <div className="container">
         {targetUi === 'view-payments' ? (
-          <AllPickupReq />
+          <TransportRoutes />
         ) : targetUi === 'payment-methods' ? (
-          <PaymentMethods />
+          <h1></h1>
         ) : targetUi === 'make-payments' ? (
-          <MakePayment />
+          <h1></h1>
         ) : (
-          <AllPickupReq />
+          <TransportRoutes />
         )}
       </div>
     </>

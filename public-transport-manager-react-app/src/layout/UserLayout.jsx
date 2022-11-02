@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import routes from '../routes'
+
 import {
   AppContent,  TopBar
 } from '../components'
@@ -14,7 +14,7 @@ const DefaultLayout = () => {
     const currentRoute = routes.find((route) => route.path === pathname)
     return currentRoute ? currentRoute.name : false
   }
-  const breadcrumbs = getRouteName(currentLocation, routes)
+
   return (
     <>
       <TopBar setActive={setActive} isActive={isActive} />

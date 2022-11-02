@@ -1,7 +1,7 @@
 
 import express from "express";
 import authRouter from "./auth.routes";
-import userRouter from "./user.routes";
+
 import publicTransportProviderRouter from "./publicTransportProvider.routes";
 import transportRouteRouter from "./transportRoute.routes";
 import journey from "./journey.routes";
