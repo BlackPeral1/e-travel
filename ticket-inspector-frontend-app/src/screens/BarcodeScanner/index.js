@@ -2,11 +2,14 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
+import { Picker } from '@react-native-picker/picker';
 
 export default function BarCodeScan(props) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [text, setText] = useState("Not yet scanned");
+  const [cities, setCities] = useState(['Wattala', 'Kadana', 'Ja-ela']);
+  const [city, setCity] = useState(cities[0]);
 
   const askForCameraPermission = () => {
     (async () => {
@@ -48,6 +51,20 @@ export default function BarCodeScan(props) {
   //Return the View
   return (
     <View style={styles.container}>
+      <Picker
+        style={styles.picker}
+        selectedValue={city}
+        onValueChange={(itemValue, itemIndex) =>
+          setCity(itemValue)
+        } >
+        {cities.map((city) => {
+          return (
+            <Picker.Item label={city} value={city} />
+          )
+        })}
+
+
+      </Picker>
       <View style={styles.barcodebox}>
         <BarCodeScanner
           onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
@@ -86,4 +103,19 @@ const styles = StyleSheet.create({
     fontSize: 16,
     margin: 30,
   },
+  picker: {
+    height: 50,
+    width: 200,
+    backgroundColor: '#fff',
+    marginBottom: 40,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    borderRadius: 12
+  }
 });
