@@ -20,7 +20,8 @@ const Splash = () => {
                         }, 2000);
                     } else {
                         setTimeout(() => {
-                            Navigation.navigate("Home");
+                            // Navigation.navigate("Home");
+                            Navigation.navigate("PaymentHome");
                             setIsGo(false);
                         }, 2000);
                     }
