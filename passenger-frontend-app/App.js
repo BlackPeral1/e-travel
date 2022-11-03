@@ -1,3 +1,14 @@
+
+import React from 'react';
+// import AuthStack from "./src/navigation/AuthStack";
+
+
+import AuthStack from "./src/navigation/AuthStack";
+import PaymentStack from "./src/navigation/PaymenStack";
+
+export default function App() {
+    return (
+
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -25,11 +36,9 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+        <AuthStack/>
+        // <PaymentStack/>
+
+    )
+}
