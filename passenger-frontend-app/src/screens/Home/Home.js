@@ -1,3 +1,4 @@
+
 import React, {useEffect, useState} from 'react';
 import {SafeAreaView, ScrollView, Text, View} from "react-native";
 import AuthService from "../../services/authService";
@@ -51,3 +52,4 @@ const Home = () => {
 }
 
 export default Home;
+
