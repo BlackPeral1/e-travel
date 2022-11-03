@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import {
-    AsyncStorage,
     Image,
     ImageBackground,
     SafeAreaView,
@@ -19,18 +18,10 @@ const Login = () => {
 
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(true);
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
 
-    const onChangeEmail = (e) => {
-        setEmail(e.target.value);
-    };
-
-    const onChangePassword = (e) => {
-        setPassword(e.target.value);
-    }
-
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         setMessage("");
         setLoading(true);
 
@@ -39,22 +30,24 @@ const Login = () => {
             password: password
         }
 
-        if (password != null) {
-            AuthService.login(data)
+        if (email != null && password != null) {
+            await AuthService.login(data)
                 .then((res) => {
-                        console.log(res.data.access_token)
-                        navigation.navigate("Home")
+                        if (AuthService.getCurrentUserToken()) {
+                            navigation.navigate("Home")
+                        }
                     },
                     error => {
                         const userMessage = "Username or Password Incorrect!";
                         const resMessage = (error.response && error.response.data.message && error.response.data) || userMessage || error.message || error.toString();
-
+                        console.log(error.message)
                         setLoading(false);
                         setMessage(resMessage);
                     }
                 );
         } else {
             setLoading(false);
+            console.log("EMPTY EMAIL & PASSWORD")
         }
     };
 
@@ -78,7 +71,7 @@ const Login = () => {
                             style={styles.textInput}
                             name="email"
                             id="email"
-                            onChange={onChangeEmail}
+                            onChangeText={text => setEmail(text)}
                             placeholder="Enter Your Email Address"
                             textAlign="center"/>
                     </View>
@@ -87,7 +80,7 @@ const Login = () => {
                             style={styles.textInput}
                             name="password"
                             id="password"
-                            onChange={onChangePassword}
+                            onChangeText={text => setPassword(text)}
                             placeholder="Enter Your Password"
                             textAlign="center"
 
@@ -115,19 +108,6 @@ const Login = () => {
                             <Text style={{textAlign: 'center', fontSize: 16, color: '#fff'}}>LOGIN</Text>
                         </TouchableOpacity>
                     </View>
-                    {/*<View style={styles.formInput}>*/}
-                    {/*    <Text style={{textAlign: 'center'}}>or</Text>*/}
-                    {/*</View>*/}
-                    {/*<View style={styles.formInput}>*/}
-                    {/*    <View style={{justifyContent:'center',alignItems:'center',flexDirection:'row'}}>*/}
-                    {/*        <TouchableOpacity style={{marginRight:10}}>*/}
-                    {/*            <Image source={require('../assets/images/login/google.png')} style={{width:40,height:40,borderRadius:1000}}/>*/}
-                    {/*        </TouchableOpacity>*/}
-                    {/*        <TouchableOpacity style={{marginLeft:10}}>*/}
-                    {/*            <Image source={require('../assets/images/login/facebook.png')} style={{width:40,height:40,borderRadius:1000}}/>*/}
-                    {/*        </TouchableOpacity>*/}
-                    {/*    </View>*/}
-                    {/*</View>*/}
                     <View>
                         <View style={{height: 1, backgroundColor: '#ddd', width: '100%', marginTop: 25}}></View>
                     </View>
