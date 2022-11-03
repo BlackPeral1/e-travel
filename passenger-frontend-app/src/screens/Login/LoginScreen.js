@@ -34,7 +34,7 @@ const Login = () => {
             await AuthService.login(data)
                 .then((res) => {
                         if (AuthService.getCurrentUserToken()) {
-                            navigation.navigate("Home")
+                            navigation.navigate("PaymentHome")
                         }
                     },
                     error => {

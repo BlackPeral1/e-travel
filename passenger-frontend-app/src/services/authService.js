@@ -2,7 +2,7 @@ import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class AuthService {
-    BASE_URL = "http://192.168.8.160:3001/api/auth"
+    BASE_URL = "http://192.168.1.3:3001/api/auth"
 
     // User SignIn
     login(data) {
