@@ -37,7 +37,7 @@ export const getAllUsers = async ({ sort = {}, filter = {}, page, limit = 10 }) 
 }
 
 export const getOneUser = async (filters, returnPassword = false) => {
-    const user = await User.findOne(filters).populate('LocalPassenger ForeignPassenger Inspector').lean()
+    const user = await User.findOne(filters).populate('LocalPassenger ForeignPassenger Inspector PTManager').lean()
     if (!user) return null
 
     if (!returnPassword) delete user.password
