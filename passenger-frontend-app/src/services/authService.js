@@ -2,76 +2,56 @@ import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class AuthService {
-    BASE_URL = "http://192.168.1.3:3001/"
+    BASE_URL = "http://192.168.8.160:3001/api/auth"
 
-    // User Sign In
+    // User SignIn
     login(data) {
-        console.log(data)
         return axios.post(
-            "http://localhost:3001/api/auth/login", data).then(response => {
+            this.BASE_URL + "/login", data).then(response => {
             if (response.data.data.access_token) {
-                AsyncStorage.setItem('user', JSON.stringify(response.data.data));
+                AsyncStorage.setItem('user_id', response.data.data.user._id);
+                AsyncStorage.setItem('user_name', response.data.data.user.name);
+                AsyncStorage.setItem('user_email', response.data.data.user.email);
+                AsyncStorage.setItem('user_token', response.data.data.access_token);
             }
-            return response.data;
+            return response;
         });
     }
 
-    // User Sign Up
+    // User SignUp
     register(user) {
         return axios.post(
-            "http://localhost:3001/api/auth/register", user
+            this.BASE_URL + "/register", user
         );
     }
 
-    // User Sign Out
-    logout() {
-        localStorage.removeItem("user");
+    // User SignOut
+    userLogout() {
+        AsyncStorage.setItem('user_id', "logout");
+        AsyncStorage.setItem('user_name', "logout");
+        AsyncStorage.setItem('user_email', "logout");
+        AsyncStorage.setItem('user_token', "logout");
     }
 
-    // Current User
-    getCurrentUser() {
-        return AsyncStorage.getItem('user');
+    // Current User Id
+    getCurrentUserId() {
+        return AsyncStorage.getItem('user_id');
     }
 
+    // Current User Full Name
+    getCurrentUserName() {
+        return AsyncStorage.getItem('user_name');
+    }
 
-//     const [isLoading, setIsLoading] = useState(false);
-//     const [userToken, setUserToken] = useState(null);
-//
-//     const login = () => {
-//
-//         setIsLoading(true);
-//         axios.post("http://localhost:3001/api/auth/login")
-//         setUserToken(''ioiojkad);
-//         AsysncStorage.setItem('userToken', userToken);
-//         setIsLoading(false);
-//     }
-//
-//      const Logout = () => {
-//
-//         setIsLoading(true);
-//         setUserToken(null);
-//         AsysncStorage.removeItem('userToken', userToken);
-//         setIsLoading(false);
-//     }
-//
-//     const isLoggedIn = () => {
-//
-//         try{
-//             setIsLoading(true);
-//             let userToken =  await AsyncStorage.getItem('userToken');
-//             setUserToken(userToken);
-//             setIsLoading(false);
-//
-//         }catch (e) {
-//                 console.log(`isLogged in error ${e}`)
-//         }
-//     }
-//     useEffect(() => {
-//         isLoggedIn();
-// }, [])
-//
-// }
+    // Current User Email
+    getCurrentUserEmail() {
+        return AsyncStorage.getItem('user_email');
+    }
 
+    // Current User Token
+    getCurrentUserToken() {
+        return AsyncStorage.getItem('user_token');
+    }
 }
 
 export default new AuthService();
