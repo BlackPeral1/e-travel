@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {
     Image,
     ImageBackground,
@@ -11,15 +11,32 @@ import {
     View
 } from "react-native";
 import {useNavigation} from "@react-navigation/core";
+import AuthService from "../../services/authService";
 
 const AddPayementCard = () => {
-
-    const navigation = useNavigation();
-
     const [cardType, setCardType] = useState("");
     const [cardNumber, setCardNumber] = useState("");
     const [cvc, setCvc] = useState("");
     const [expirationDate, setExpirationDate] = useState("");
+
+
+    const [currentUserId, setCurrentUserId] = useState("");
+    useEffect(() => {
+        const getAsyncStorageData = async () => {
+            try {
+                let user_id = await AuthService.getCurrentUserId();
+
+                await setCurrentUserId(user_id);
+            } catch (e) {
+                console.log(e.message)
+            }
+        }
+
+        getAsyncStorageData();
+    }, []);
+
+    const navigation = useNavigation();
+
 
     // const cardTypeList = [{
     //     value: 'Credit Card',
@@ -47,7 +64,7 @@ const AddPayementCard = () => {
     const handleSubmit = () => {
 
         const data = {
-            userId:"user002",
+            userId:currentUserId,
             cardType: cardType,
             cardNumber: cardNumber,
             cvc: cvc,

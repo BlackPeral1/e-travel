@@ -1,45 +1,49 @@
 import React from 'react'
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
+import {StyleSheet, View, Text, Image, TouchableOpacity, ImageBackground} from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function PaymentHome({ navigation }) {
     return (
         <SafeAreaView style={styles.container}>
+            <View style={styles.headContainer}>
+                <ImageBackground style={styles.defaultBg} resizeMode={'cover'}
+                                 source={require('../../assets/images/login/bgauth.jpg')}/>
+            </View>
             <View style={styles.header}>
-                <Text style={styles.headerText}>Home Page</Text>
+                <Text style={styles.headerText}>Payment Home Page</Text>
             </View>
             <View style={styles.menu}>
                 <TouchableOpacity style={styles.item}
                     // key={value}
-                                  onPress={() => navigation.navigate('MyQr')}
+                    //               onPress={() => navigation.navigate('MyQr')}
                     // style={[styles.button, selectedValue === value && styles.selected]}
                 >
-                    {/*<Image source={require('../../assets/images/qr-code.png')} style={styles.img} />*/}
-                    <Text>Apply Card</Text>
+                    <Image source={require('../../assets/images/Payment/applycard.jpeg')} style={styles.img} />
+                    <Text style={styles.textName}>Apply Card</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.item}
                     // key={value}
                     // onPress={() => setSelectedValue(value)}
                     // style={[styles.button, selectedValue === value && styles.selected]}
                 >
-                    {/*<Image source={require('../../assets/images/transaction.png')} style={styles.img} />*/}
-                    <Text>Payments</Text>
+                    <Image source={require('../../assets/images/Payment/paymentaccount.jpg')} style={styles.img} />
+                    <Text style={styles.textName}>Payments</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.item}
                     // key={value}
                     // onPress={() => setSelectedValue(value)}
                     // style={[styles.button, selectedValue === value && styles.selected]}
                 >
-                    {/*<Image source={require('../../assets/images/appointment.png')} style={styles.img} />*/}
-                    <Text>Add Credit</Text>
+                    <Image source={require('../../assets/images/Payment/addcredit.jpg')} style={styles.img} />
+                    <Text style={styles.textName}>Add Credit</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.item}
                     // key={value}
                     // onPress={() => setSelectedValue(value)}
                     // style={[styles.button, selectedValue === value && styles.selected]}
                 >
-                    {/*<Image source={require('../../assets/images/debit-card.png')} style={styles.img} />*/}
-                    <Text>Account</Text>
+                    <Image source={require('../../assets/images/Payment/account.jpeg')} style={styles.img} />
+                    <Text style={styles.textName}>Account</Text>
                 </TouchableOpacity>
             </View>
         </SafeAreaView>
@@ -52,6 +56,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         height: '100%'
     },
+    headContainer:{},
     header: {
         flexDirection: 'row',
         marginBottom: 50,
@@ -61,8 +66,16 @@ const styles = StyleSheet.create({
     headerText: {
         fontSize: 24,
         fontWeight: '700',
-        color: 'gray'
+        // color: 'gray'
+        color:'#0c4a6e'
+    }, textName: {
+        color: "#737373",
+        textAlign: 'center',
+        fontSize: 16,
+        fontWeight: 'bold'
     },
+
+
     menu: {
         flexDirection: 'row',
         flexWrap: 'wrap',

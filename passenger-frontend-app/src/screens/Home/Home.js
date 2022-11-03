@@ -1,39 +1,40 @@
-
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, ScrollView, Text, View} from "react-native";
+import {SafeAreaView, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import AuthService from "../../services/authService";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import {useNavigation} from "@react-navigation/core";
 
 const Home = () => {
+    const [currentUserId, setCurrentUserId] = useState("");
+    const [currentUserToken, setCurrentUserToken] = useState("");
+    const [currentUserName, setCurrentUserName] = useState("");
+    const [currentUserEmail, setCurrentUserEmail] = useState("");
 
-    const [currentUser, setCurrentUser] = useState();
-    const [userRole, setUserRole] = useState();
-    const [userFullName, setUserFullName] = useState();
+    const navigation = useNavigation();
 
     useEffect(() => {
-        // async function dataFetch() {
-        //     const data = await AsyncStorage.getItem('user');
-        //     // const temp = await AuthService.getCurrentUser();
-        //     data != null ? JSON.parse(data) : null;
-        //     await setCurrentUser(data.user);
-        //     // await setUserFullName(temp.user.name);
-        //     console.log("HOME_LOADING: ", JSON.parse(data));
-        //     console.log("HOME_LOADING_USER: ", currentUser);
-        // }
-
-        const getData = async () => {
+        const getAsyncStorageData = async () => {
             try {
-                const jsonValue = await AsyncStorage.getItem('user')
-                const data = jsonValue != null ? JSON.parse(jsonValue) : null;
+                let user_id = await AuthService.getCurrentUserId();
+                let user_name = await AuthService.getCurrentUserName();
+                let user_email = await AuthService.getCurrentUserEmail();
+                let user_token = await AuthService.getCurrentUserToken();
 
-                await setCurrentUser(data)
-            } catch(e) {
+                await setCurrentUserId(user_id);
+                await setCurrentUserName(user_name);
+                await setCurrentUserEmail(user_email);
+                await setCurrentUserToken(user_token);
+            } catch (e) {
                 console.log(e.message)
             }
         }
 
-        getData();
+        getAsyncStorageData();
     }, []);
+
+    const handleLogout = async () => {
+        await AuthService.userLogout();
+        navigation.navigate("Login")
+    }
 
     return (
         <SafeAreaView>
@@ -42,14 +43,25 @@ const Home = () => {
                     <Text style={{fontSize: 100}}>Home</Text>
                 </View>
                 <View>
-                    {/*<Text style={{fontSize: 50}}>{JSON.stringify(currentUser, null, 2)}</Text>*/}
-                    <Text style={{fontSize: 50}}>{currentUser}</Text>
+                    <Text style={{fontSize: 20}}>Name: {currentUserName}</Text>
+                    <Text style={{fontSize: 20}}>Email: {currentUserEmail}</Text>
+                    <Text style={{fontSize: 20}}>ID: {currentUserId}</Text>
+                    <Text style={{fontSize: 20}}>Token: {currentUserToken}</Text>
                 </View>
-
+                <View>
+                    <TouchableOpacity
+                        onPress={() => {
+                            handleLogout()
+                        }}
+                        style={{
+                            padding: 15, backgroundColor: '#e90e0e', borderRadius: 10
+                        }}>
+                        <Text style={{textAlign: 'center', fontSize: 16, color: '#fff'}}>LOGOUT</Text>
+                    </TouchableOpacity>
+                </View>
             </ScrollView>
         </SafeAreaView>
     );
 }
 
 export default Home;
-
