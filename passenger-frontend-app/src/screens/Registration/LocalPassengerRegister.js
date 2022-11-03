@@ -6,14 +6,12 @@ import {
     ScrollView,
     StyleSheet,
     Text,
-    TextInput,
+    TextInput, ToastAndroid,
     TouchableOpacity,
     View
 } from "react-native";
 import {useNavigation} from "@react-navigation/core";
-import UserService from "../../services/userService";
 import AuthService from "../../services/authService";
-import axios from "axios";
 
 const LocalRegister = () => {
 
@@ -25,27 +23,6 @@ const LocalRegister = () => {
     const [contactNumber, setContactNumber] = useState("");
     const [nic, setNic] = useState("");
     const [address, setAddress] = useState("");
-
-    const onChangeName = (e) => {
-        setName(e.target.value);
-    };
-
-    const onChangeEmail = (e) => {
-        setEmail(e.target.value);
-    };
-    const onChangePassword = (e) => {
-        setPassword(e.target.value);
-    }
-
-    const onChangeContactNumber = (e) => {
-        setContactNumber(e.target.value);
-    }
-    const onChangeAddress = (e) => {
-        setAddress(e.target.value);
-    };
-    const onChangeNic = (e) => {
-        setNic(e.target.value);
-    };
 
     const handleSubmit = async () => {
         const data = {
@@ -66,9 +43,10 @@ const LocalRegister = () => {
 
         await AuthService.register(data)
             .then(res => {
-                console.log(res)
                 navigation.navigate("Login")
+                ToastAndroid.show("Registration Successfully!", ToastAndroid.SHORT);
             }).catch(err => {
+                ToastAndroid.show("Registration Failed!", ToastAndroid.SHORT);
                 console.log(err.message)
             });
     }
