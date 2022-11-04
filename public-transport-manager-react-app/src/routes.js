@@ -15,17 +15,12 @@ const routes = [
 
   {
     path: '/Admin',
-    name: 'Payment',
+    name: 'PublicTranportManagerDashboard',
     element: PublicTranportManagerDashboard,
     permissions: 'isCompany',
   },
 
-  {
-    path: '/Admin',
-    name: 'Payment',
-    element: PublicTranportManagerDashboard,
-    permissions: 'isCompany',
-  },
+
 ]
 
 export default routes

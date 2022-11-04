@@ -18,9 +18,14 @@ export const findTimeTable = async (filters) => {
 };
 
 export const findAndUpdateTimeTable = async (id, updatedTimeTable) => {
-  return await TimeTable.findByIdAndUpdate(id, updatedTimeTable, {
-    new: true,
-  });
+  const timeTable = await findTimeTable({ _id: id });
+  timeTable.tableRows = null;
+  timeTable.tableRows=updatedTimeTable;
+  var newTimeTable = undefined;
+  try {
+    newTimeTable = await timeTable.save();
+  } catch (e) {}
+  return await newTimeTable;
 };
 
 export const removeTimeTable = async (id) => {

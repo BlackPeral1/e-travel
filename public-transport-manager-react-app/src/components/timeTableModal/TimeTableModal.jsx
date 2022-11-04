@@ -11,22 +11,28 @@ import { Table, Form, Input } from 'antd'
 import Swal from 'sweetalert2'
 
 import './timeTableModal.scoped.css'
+import Item from 'antd/lib/list/Item'
 
 export default function CusPickupReqModal(props) {
+
   const [validated, setValidated] = useState(false)
-  const [dataSource, setDataSource] = useState(data)
+  const [tdata, setTdata] = useState({ ...props.viewDetils.timeTable })
+  const [dataSource, setDataSource] = useState([])
   const [editingRow, setEditingRow] = useState(null)
   const [antform] = Form.useForm()
 
   useEffect(() => {
-    setDataSource([...props.viewDetils])
+    // props.getTransportRoute()
+    setDataSource(props.viewDetils?.timeTable?.tableRows)
+    console.log(props)
+    console.log(props.viewDetils?.timeTable?.tableRows)
   }, [props])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
     axios
-      .patch(`http://localhost:3001/api/auth/traportRoute/${props.viewDetils._id}`, dataSource)
+      .patch(`http://localhost:3001/api/timeTable/${props.viewDetils.timeTable._id}`, dataSource)
       .then((res) => {
         Swal.fire({
           icon: 'success',
@@ -34,7 +40,7 @@ export default function CusPickupReqModal(props) {
           showConfirmButton: false,
           timer: 2000,
         })
-   
+
         props.getTransportRoute()
         props.detilsModalClose()
         setValidated(false)
@@ -63,7 +69,7 @@ export default function CusPickupReqModal(props) {
       title: 'Start Time',
       dataIndex: 'startTime',
       render: (text, record) => {
-        if (editingRow == record.key) {
+        if (editingRow == record._id) {
           return (
             <Form.Item name="startTime">
               <Input />
@@ -78,7 +84,7 @@ export default function CusPickupReqModal(props) {
       title: 'End Time',
       dataIndex: 'endTime',
       render: (text, record) => {
-        if (editingRow == record.key) {
+        if (editingRow == record._id) {
           return (
             <Form.Item name="endTime">
               <Input />
@@ -89,8 +95,36 @@ export default function CusPickupReqModal(props) {
         }
       },
     },
-    { title: 'Start Location', dataIndex: 'startLocation' },
-    { title: 'End Location', dataIndex: 'endLocation' },
+    {
+      title: 'Start Location',
+      dataIndex: 'startLocation',
+      render: (text, record) => {
+        if (editingRow == record._id) {
+          return (
+            <Form.Item name="startLocation">
+              <Input />
+            </Form.Item>
+          )
+        } else {
+          return <p>{text}</p>
+        }
+      },
+    },
+    {
+      title: 'End Location',
+      dataIndex: 'endLocation',
+      render: (text, record) => {
+        if (editingRow == record._id) {
+          return (
+            <Form.Item name="endLocation">
+              <Input />
+            </Form.Item>
+          )
+        } else {
+          return <p>{text}</p>
+        }
+      },
+    },
     {
       title: 'Actions',
       render: (_, record) => {
@@ -100,10 +134,12 @@ export default function CusPickupReqModal(props) {
               tyoe="link"
               className="me-2"
               onClick={() => {
-                setEditingRow(record.key)
+                setEditingRow(record._id)
                 antform.setFieldsValue({
                   startTime: record.startTime,
                   endTime: record.endTime,
+                  startLocation: record.startLocation,
+                  endLocation: record.endLocation,
                 })
               }}
             >
@@ -117,58 +153,15 @@ export default function CusPickupReqModal(props) {
       },
     },
   ]
-  const data = [
-    {
-      key: '1',
-      startLocation: 'Kadawatha',
-      startTime: '08:30 A.M',
-      endLocation: 'Delgoda',
-      endTime: '10:30 A.M',
-    },
-    {
-      key: '2',
-      startLocation: 'Delgoda',
-      startTime: '08:30 A.M',
-      endLocation: 'Kadawatha',
-      endTime: '10:30 A.M',
-    },
-    {
-      key: '3',
-      startLocation: 'kadawatha',
-      startTime: '08:30 A.M',
-      endLocation: 'Delgoda',
-      endTime: '10:30 A.M',
-    },
-    {
-      key: '4',
-      startLocation: 'Delgoda',
-      startTime: '08:30 A.M',
-      endLocation: 'Kadawatha',
-      endTime: '10:30 A.M',
-    },
-    {
-      key: '5',
-      startLocation: 'kadawatha',
-      startTime: '08:30 A.M',
-      endLocation: 'Delgoda',
-      endTime: '08:30 P.M',
-    },
-    {
-      key: '6',
-      startLocation: 'Delgoda',
-      startTime: '10:30 A.M',
-      endLocation: 'Kadawatha',
-      endTime: '11:30 A.M',
-    },
-  ]
 
   const onFinish = (values) => {
     console.log(values)
     const updatedDataSource = [...dataSource]
     console.log(editingRow)
-    updatedDataSource.splice(editingRow, 1, { ...values, key: editingRow })
-    console.log(updatedDataSource)
-    setDataSource(updatedDataSource)
+    const newDataSet=updatedDataSource.filter((row) => row._id !== editingRow)
+    newDataSet.push({ ...values, _id: editingRow })
+    console.log(newDataSet)
+    setDataSource(newDataSet)
     setEditingRow(null)
   }
   return (

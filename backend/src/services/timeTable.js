@@ -23,11 +23,13 @@ export const createTimeTable = async (data) => {
 };
 
 export const getTimeTables = async () => {
+  console.log(getAllTimeTables())
   return getAllTimeTables();
 };
 
 export const getTimeTable = async (id) => {
   const result = await findTimeTable({ _id: id });
+  console.log(result)
   if (result.length === 0)
     return {
       status: 400,
