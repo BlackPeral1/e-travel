@@ -17,10 +17,11 @@ export const findTimeTable = async (filters) => {
   return await TimeTable.findOne(filters);
 };
 
+
 export const findAndUpdateTimeTable = async (id, updatedTimeTable) => {
   const timeTable = await findTimeTable({ _id: id });
   timeTable.tableRows = null;
-  timeTable.tableRows=updatedTimeTable;
+  timeTable.tableRows = updatedTimeTable;
   var newTimeTable = undefined;
   try {
     newTimeTable = await timeTable.save();

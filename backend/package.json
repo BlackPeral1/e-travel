@@ -7,7 +7,7 @@
     "build": "babel src -d dist",
     "dev": "nodemon --exec babel-node src/app.js",
     "start": "node dist/app.js",
-    "test": "mocha --require @babel/register src/test"
+    "test": "mocha --require @babel/register src/test --timeout 100000"
   },
   "repository": {
     "type": "git",
