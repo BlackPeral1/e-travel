@@ -53,5 +53,10 @@ export const financeData = [
         expenses : 10000,
         profit : 9000
     },
-
 ]
+
+export const financeSummary = {
+    totIncome : "69000",
+    totExpenses : "40000",
+    totProfit : "29000"
+}
