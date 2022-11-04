@@ -8,7 +8,6 @@ import {
 } from "../repository/TransportRoute";
 
 export const createTransportRoute = async (data) => {
-
   const transportRoute = await findTransportRoute({
     routeId: data.routeId,
   });
@@ -45,7 +44,16 @@ export const updateTransportRouteById = async (id, data) => {
     };
   return await findAndUpdateTransportRoute(id, data);
 };
-
+export const calcuLateProfitOrLoss = (income, expences) => {
+  return income - expences;
+};
+export const getCrowdStatus = (expectedCrowd, todayCrowd) => {
+  const crowdDifference = todayCrowd - expectedCrowd;
+  if (crowdDifference > 0) {
+    return "OverCrowded";
+  }
+  return "NotCrowded";
+};
 export const deleteTransportRoute = async (id) => {
   let transportRoute = await findTransportRoute({
     _id: id,

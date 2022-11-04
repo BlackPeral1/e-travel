@@ -1,27 +1,28 @@
-import "./login.css";
-import Button from "react-bootstrap/Button";
-import { Container, Row, Col } from "react-bootstrap";
-import Form from 'react-bootstrap/Form';
-import Nav from "react-bootstrap/Nav";
-import animationData from '../../../assets/helloAnimation.json';
+import './login.css'
+import Button from 'react-bootstrap/Button'
+import { Container, Row, Col } from 'react-bootstrap'
+import Form from 'react-bootstrap/Form'
+import Nav from 'react-bootstrap/Nav'
+import animationData from '../../../assets/helloAnimation.json'
 import Lottie from 'react-lottie'
-import TopNav from "../../../components/topnav/TopNav";
-import { useState } from "react";
-import axios from "axios";
+import TopNav from '../../../components/topnav/TopNav'
+import { useState } from 'react'
+import axios from 'axios'
 import Swal from 'sweetalert2'
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
 export default function Login() {
+  const navigate = useNavigate()
   const defaultOptions = {
     loop: true,
     autoplay: true,
     animationData: animationData,
     rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice'
-    }
-  };
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  }
 
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -29,15 +30,17 @@ export default function Login() {
       .post('http://localhost:3001/api/auth/login', { email, password })
       .then(function (res) {
         if (res.status === 200) {
-          localStorage.setItem("role", res.data.data.user.role)
-            localStorage.setItem("token", res.data.data.access_token)
-            localStorage.setItem("name",res.data.data.user.name.first_name)
+          localStorage.setItem('role', res.data.data.user.role)
+          localStorage.setItem('token', res.data.data.access_token)
+          localStorage.setItem('name', res.data.data.user.name.first_name)
+
           Swal.fire({
             icon: 'success',
             title: 'Logged in successfully!',
             showConfirmButton: false,
             timer: 2000,
           })
+          if (res.data.data.user.role === 'PTMANAGER') navigate('/user/Admin')
         }
       })
       .catch(function (error) {
@@ -58,24 +61,31 @@ export default function Login() {
   return (
     <>
       {/* <TopNav /> */}
-      <Container className="mt-5" >
+      <Container className="mt-5">
         <Row>
-          <Col >
-            <Lottie
-              options={defaultOptions}
-              height={300}
-              width={300} />
+          <Col>
+            <Lottie options={defaultOptions} height={300} width={300} />
           </Col>
           <Col>
             <Form className="mt-5 " onSubmit={handleSubmit}>
               <Form.Group className="mb-3 w-75 ms-5" controlId="formBasicEmail">
-                <Form.Control type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <Form.Control
+                  type="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </Form.Group>
               <Form.Group className="mb-3 w-75 ms-5" controlId="formBasicPassword">
-                <Form.Control type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                <Form.Control
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
               </Form.Group>
               <Form.Group className="text-center">
-                <Button variant="primary" type="submit" >
+                <Button variant="primary" type="submit">
                   Login
                 </Button>
               </Form.Group>
@@ -85,14 +95,11 @@ export default function Login() {
                     Not a member? Let's Sign Up!
                   </Nav.Link> */}
                 </Form.Text>
-
               </Form.Group>
             </Form>
           </Col>
         </Row>
       </Container>
-
     </>
-  );
-
+  )
 }
