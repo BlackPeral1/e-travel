@@ -23,11 +23,13 @@ export const createTimeTable = async (data) => {
 };
 
 export const getTimeTables = async () => {
+  console.log(getAllTimeTables());
   return getAllTimeTables();
 };
 
 export const getTimeTable = async (id) => {
   const result = await findTimeTable({ _id: id });
+  console.log(result);
   if (result.length === 0)
     return {
       status: 400,
@@ -39,7 +41,32 @@ export const getTimeTable = async (id) => {
     message: "Time Table retrieved successfully",
   };
 };
-
+export const checkObjectEmptyAttributes = (data) => {
+  var hasEmptyattribues = false;
+  var emptyArray = data.length == 0 ? true : false;
+  for (var i = 0; i < data.length; i++) {
+    if (data[i].startLocation == undefined) {
+      hasEmptyattribues = true;
+      break;
+    } else if (data[i].startTime == undefined) {
+      hasEmptyattribues = true;
+      break;
+    } else if (data[i].endLocation == undefined) {
+      hasEmptyattribues = true;
+      break;
+    } else if (data[i].endTime == undefined) {
+      hasEmptyattribues = true;
+      break;
+    } else if (data[i]._id == undefined) {
+      hasEmptyattribues = true;
+      break;
+    }
+  }
+  if (hasEmptyattribues || emptyArray) {
+    return false;
+  }
+  return true;
+};
 export const updateTimeTableById = async (id, data) => {
   let timeTable = await findTimeTable({
     _id: id,

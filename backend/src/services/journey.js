@@ -38,7 +38,22 @@ export const getJourney = async (id) => {
     message: "Journey retrieved successfully",
   };
 };
-
+export const calCulateJourneyFare = (
+  journeyType,
+  distance,
+  pricePerjourney
+) => {
+  if (isNaN(distance) || isNaN(pricePerjourney)) {
+    return "Invalid";
+  }
+  if (journeyType == "one-way") {
+    return distance * pricePerjourney;
+  } else if (journeyType == "two-way") {
+    return distance * pricePerjourney * 2;
+  } else {
+    return "Invalid";
+  }
+};
 export const updateJourneyById = async (id, data) => {
   let journey = await findJourney({
     _id: id,
