@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react'
 import { NavLink } from 'react-router-dom'
 import './subNavBar.scoped.css'
 
-import TransportRoutes from '../../publicTransportManager/TranportRoutes/TransportRoutes'
+import TransportRoutes from '../../publicTransportManager/TranportRoute/TransportRoutes'
 
 export default function SubNavBar() {
   const [targetUi, setTargetUi] = useState('view-payments')

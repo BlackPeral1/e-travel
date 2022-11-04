@@ -18,10 +18,12 @@ const TransportRouteSchema = new mongoose.Schema(
         ref: "Journey",
       },
     ],
+    expectedCrowd: { type: Number },
+    todayCrowd: { type: Number },
     totalIncome: { type: Number, default: 0.0 },
     totalNumberOfPassengers: { type: Number, default: 0 },
     totalNumberInvalidTickets: { type: Number, default: 0 },
-    timetable: { type: mongoose.Schema.Types.ObjectId, ref: "TimeTable" },
+    timeTable: { type: mongoose.Schema.Types.ObjectId, ref: "TimeTable",required:true },
   },
   {
     versionKey: false,

@@ -16,7 +16,7 @@ const router = express.Router();
 router.use("/auth", authRouter);
 router.use("/user", userRouter);
 router.use("/publicTransportProvider", publicTransportProviderRouter);
-router.use("/traportRoute", transportRouteRouter);
+router.use("/transportRoute", transportRouteRouter);
 router.use("/journey", journey);
 router.use("/timeTable", timeTable);
 router.use('/payment', paymentRouter);
