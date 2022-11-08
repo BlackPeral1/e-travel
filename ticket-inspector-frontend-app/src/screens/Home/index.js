@@ -4,21 +4,44 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HomeScreen = ({ navigation }) => {
-  const [city, setCity] = useState('');
+  const [city, setCity] = useState({
+    "_id": "6364f6cc5dba8ead567d68cc",
+    "journeyId": "JID-1",
+    "startFrom": "Colombo",
+    "endsAt": "Kuliyapitiya",
+    "cities": [
+      {
+        "city": "kadana",
+        "price": "100.00"
+      },
+      {
+        "city": "wattala",
+        "price": "150.00"
+      },
+      {
+        "city": "Negombo",
+        "price": "170.00"
+      }
+    ],
+    "journeyType": "one-way",
+    "created_at": "2022-11-04T11:26:04.698Z",
+    "updated_at": "2022-11-04T11:26:04.698Z"
+  });
   useEffect(async () => {
     try {
-      const route = await AsyncStorage.getItem('@route')
-      setCity(route)
+      const jsonValue = await AsyncStorage.getItem('@route')
+      console.log(jsonValue);
+      setCity(jsonValue != null ? JSON.parse(jsonValue) : null)
     } catch (e) {
       // error reading value
     }
   }, [])
   return (
     <SafeAreaView style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <View style={styles.title}>
+      {/* <View style={styles.title}>
         <Text style={{ fontSize: 28, fontWeight: '700', color: 'gray' }}>Home</Text>
-      </View>
-      <Text style={{ fontSize: 22, fontWeight: '600', color: 'gray', }}>{city}</Text>
+      </View> */}
+      <Text style={{ fontSize: 22, fontWeight: '600', color: 'gray', }}>{city?.startFrom + " - " + city?.endsAt}</Text>
       <View style={styles.menu}>
         <TouchableOpacity style={styles.item}
           onPress={() => navigation.navigate('BarCodeScan')}

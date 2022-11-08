@@ -8,9 +8,9 @@ export default class MyQr extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.card}>
-          <QRCode value='asd.com' size={300} />
+          <QRCode value='635fd031e93764e55a6209f8' size={300} />
           <View style={styles.name}>
-            <Text style={styles.nameTxt}>name</Text>
+            <Text style={styles.nameTxt}>635fd031e93764e55a6209f8</Text>
           </View>
         </View>
       </View>

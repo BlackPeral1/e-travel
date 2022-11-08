@@ -10,12 +10,9 @@ const JourneySchema = new mongoose.Schema(
     endsAt: {
       type: String,
     },
-    startingTime: {
-      type: Date,
-    },
-    endTime: {
-      type: Date,
-    },
+    cities: [{
+      type: Object,
+    }],
     journeyType: {
       type: String,
       default: "one-way",
